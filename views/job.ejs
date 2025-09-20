@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Portal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 80%;
+      margin: 40px auto;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .add-job {
+      text-align: right;
+      margin-bottom: 20px;
+    }
+    .add-job a {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #28a745;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    .add-job a:hover {
+      background-color: #218838;
+    }
+    .job-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .job-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      width: 300px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .job-card h3 {
+      margin: 0 0 10px 0;
+      color: #007BFF;
+    }
+    .job-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+    .job-card form {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .job-card button {
+      padding: 6px 12px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .job-card button:hover {
+      background-color: #0056b3;
+    }
+    .job-card .resume-btn {
+      background-color: #6c757d;
+    }
+    .job-card .resume-btn:hover {
+      background-color: #5a6268;
+    }
+    .job-card input[type="text"],
+    .job-card input[type="email"],
+    .job-card input[type="file"] {
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Available Jobs</h1>
+
+    <div class="add-job">
+      <a href="/jobs/jobpost">Post a Job</a>
+    </div>
+
+    <div class="job-list">
+      <% if (jobs.length > 0) { %>
+        <% jobs.forEach(job => { %>
+          <div class="job-card">
+            <h3><%= job.title %></h3>
+            <p><strong>Company:</strong> <%= job.company %></p>
+            <p><strong>Location:</strong> <%= job.location %></p>
+            <p><%= job.description %></p>
+
+            <!-- Apply Form -->
+          <form action="/jobs/apply/<%= job._id %>" method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Your Name" required />
+            <input type="email" name="email" placeholder="Your Email" required />
+            <input type="file" name="resume" required />
+            <button type="submit">Apply</button>
+          </form>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p>No jobs available.</p>
+      <% } %>
+    </div>
+  </div>
+</body>
+</html>

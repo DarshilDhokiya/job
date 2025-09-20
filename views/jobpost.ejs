@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post a New Job</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { max-width: 400px; margin: auto; display: flex; flex-direction: column; }
+    label { margin-top: 10px; }
+    input, textarea, button { padding: 8px; margin-top: 5px; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+  </style>
+</head>
+<body>
+  <h1>Post a New Job</h1>
+  <form action="/jobs/jobpost" method="POST">
+    <label for="title">Job Title</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="company">Company</label>
+    <input type="text" id="company" name="company" required>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" name="location" required>
+
+    <label for="description">Job Description</label>
+    <textarea id="description" name="description" rows="4" required></textarea>
+
+    <button type="submit">Add Job</button>
+  </form>
+</body>
+</html>
