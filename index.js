@@ -1,27 +1,27 @@
-const { configDotenv } = require('dotenv')
-const express = require('express')
-const app =express()
-const path = require('path')
+require('dotenv').config(); // Must be first
+
+const express = require('express');
+const path = require('path');
 const cookieParser = require('cookie-parser');
-const connect = require('./config/db')
-connect()
+const connect = require('./config/db');
 
-const authRoute = require('./Routes/authRoute')
-const jobRoute =require('./Routes/jobRoute')
+const authRoute = require('./Routes/authRoute');
+const jobRoute = require('./Routes/jobRoute');
 
+connect();
 
-require('dotenv').config()
+const app = express();
 
-app.set('views' , path.join(__dirname,'views'))
-app.set('view engine' , 'ejs')
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(cookieParser());
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', authRoute);
+app.use('/jobs', jobRoute);
 
-app.use('/' ,authRoute)
-app.use('/jobs',jobRoute)
-
-
-app.listen(process.env.LOCAL_HOST)
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
